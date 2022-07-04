@@ -60,16 +60,16 @@ export enum StateManagerState {
     SAVING_OVERRIDE = 5,
 }
 
-export class StateManager {
+export class StateManager<T> {
     private localStorageKey: string;
     private parent;
-    private defaults;
+    private defaults: T;
 
     private meta: StateManagerState = StateManagerState.INITIAL;
     // loadStateBarrier is guaranteed to exists only when meta is LOADING.
-    private loadStateBarrier: PromiseBarrier = null;
+    private loadStateBarrier: PromiseBarrier<void, void> = null;
 
-    constructor(localStorageKey: string, parent, defaults){
+    constructor(localStorageKey: string, parent: any, defaults: T){
         if (!isNonPersistent()) {
             // Do nothing if the current build uses persistent background
             this.meta = StateManagerState.DISABLED;
@@ -83,8 +83,8 @@ export class StateManager {
     }
 
     private collectState() {
-        const state = {};
-        for (const key of Object.keys(this.defaults)) {
+        const state = {} as T;
+        for (const key of Object.keys(this.defaults) as Array<keyof T>) {
             state[key] = this.parent[key] || this.defaults[key];
         }
         return state;
@@ -100,7 +100,9 @@ export class StateManager {
             case StateManagerState.INITIAL:
                 // Make sure not to overwrite data before it is loaded
                 logWarn('StateManager.saveState is called while loading data. Possible data race!');
-                await this.loadStateBarrier.entry();
+                if (this.loadStateBarrier) {
+                    await this.loadStateBarrier.entry();
+                }
                 this.meta = StateManagerState.SAVING;
                 break;
             case StateManagerState.READY:

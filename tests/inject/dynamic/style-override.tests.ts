@@ -1,8 +1,8 @@
-import '../polyfills';
+import '../support/polyfills';
 import {DEFAULT_THEME} from '../../../src/defaults';
 import {createOrUpdateDynamicTheme, removeDynamicTheme} from '../../../src/inject/dynamic-theme';
 import {createStyleSheetModifier} from '../../../src/inject/dynamic-theme/stylesheet-modifier';
-import {multiline, timeout} from '../../test-utils';
+import {multiline, timeout} from '../support/test-utils';
 
 const theme = {
     ...DEFAULT_THEME,
@@ -81,6 +81,23 @@ describe('STYLE ELEMENTS', () => {
             '    h1 strong { color: red; }',
             '</style>',
             '<h1>Style <strong>with @import</strong>!</h1>',
+        );
+        createOrUpdateDynamicTheme(theme, null, false);
+
+        await timeout(50);
+        expect(getComputedStyle(container).backgroundColor).toBe('rgb(0, 0, 0)');
+        expect(getComputedStyle(container.querySelector('h1')).backgroundColor).toBe('rgb(102, 102, 102)');
+        expect(getComputedStyle(container.querySelector('h1')).color).toBe('rgb(255, 255, 255)');
+        expect(getComputedStyle(container.querySelector('h1 strong')).color).toBe('rgb(255, 26, 26)');
+    });
+
+    it('should override style with @import"..."', async () => {
+        container.innerHTML = multiline(
+            '<style>',
+            `    @import"data:text/css;utf8,${encodeURIComponent('h1 { background: gray; }')}";`,
+            '    h1 strong { color: red; }',
+            '</style>',
+            '<h1>Style <strong>with @import"..."</strong>!</h1>',
         );
         createOrUpdateDynamicTheme(theme, null, false);
 

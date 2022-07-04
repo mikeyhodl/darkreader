@@ -7,37 +7,30 @@ assignees: ''
 ---
 
 <!--
-  ⚠⚠ Do not delete this issue template! ⚠⚠
-  Reported issues must use this template and have all the necessary information provided.
-  Incomplete reports are likely to be ignored and closed.
--->
-
-<!--
-  Thank you for taking the time to create a report about a website issue.
-  Ensure that there are no other existing reports for this website issue.
-  Also, remember to fill out every section on this report and remove any that are not needed.
-  Finally, place the website address in the title of this report.
+  ⚠⚠ Do not delete this issue template or your issue will be ignored! ⚠⚠
+  Thank you for taking the time to report a bug.
+  First, please check:
+  - Can the issue be reproduced in a fresh browser profile?
+  - Is there an existing issue about this?
+  Please fill out every section of this report, removing any that are not needed.
+  Finally, place a brief description in the title of this report.
 -->
 
 # Broken Website Report
 
 ## Website Address
-<!-- Provide the website address to allow us to troubleshoot this website issue. -->
+<!-- Provide the website address. -->
 
 ## Steps To Reproduce
-<!-- Provide steps to reproduce the problem, and allowing us to troubleshoot this website issue. -->
+<!-- Provide steps to reproduce the problem, which will allow us to troubleshoot this website issue. -->
 <!--
 Here is an example:
 - Go to example.com.
 - Hover over the example button.
-- Notice that when hovering over the example button, it does not change color.
 -->
 
-## Expected Behavior
-<!-- Provide a clear and concise description of what you expected to happen. -->
-
-## Actual Behavior
-<!-- Provide a clear and concise description of what happened. -->
+## Problematic Observation
+<!-- Provide a clear and concise description of the malfunction. -->
 
 ## Screenshots
 <!-- If applicable, add screenshots to help explain this website issue. -->
